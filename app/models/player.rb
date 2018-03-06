@@ -1,7 +1,6 @@
 class Player < ActiveRecord::Base
-  has_many :games
-  has_many :actual_stats, through: :games
-  has_many :projected_stats, through: :games
+  has_many :players_stats
+  has_many :games, through: :players_stats
   def find_game
   end
   def evaluate_performance
