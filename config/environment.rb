@@ -4,3 +4,6 @@ ActiveRecord::Base.establish_connection(adapter: 'sqlite3', database: 'db/develo
 require_all 'app'
 require_all 'lib'
 require 'csv'
+
+old_logger = ActiveRecord::Base.logger
+ActiveRecord::Base.logger = nil
