@@ -89,12 +89,13 @@ end
 def prompt_stat
 	puts "\nEnter stat to get:"
 	puts '(type help for stat list)'
+	glossary = {'pts'=>'points','reb'=>'rebounds','ast'=>'assists','tov'=>'turnovers','stl'=>'steals','blk'=>'blocks','fg3a'=>'3 pt field goal attempts','pf'=>'personal fouls','fgm'=>'field goals made','fga'=>'field goal attempts','oreb'=>'offensive rebounds','fta'=>'free throw attempts'}
 	stat = gets.chomp.downcase
 	columns = PlayersStat.column_names.map {|col| col.split('_')[-1] if col.include?('projected')}
 	columns.compact!
 	if stat == 'help'
 		puts ''
-		puts columns
+		columns.each {|col| puts col + ' - ' + glossary[col]}
 		puts "\nEnter stat to get:"
 		stat = gets.chomp.downcase
 	end
