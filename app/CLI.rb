@@ -8,7 +8,7 @@ def prompt_player_name
 	puts '(type help for player list)'
 	name = gets.chomp.split(' ').map(&:capitalize).join(' ')
 	if name == 'Help'
-		puts '', Player.distinct.pluck(:full_name).sort
+		puts Player.distinct.pluck(:full_name).sort
 		puts "\n Enter player name:"
 		name = gets.chomp.split(' ').map(&:capitalize).join(' ')
 	end
@@ -68,7 +68,7 @@ def prompt_team_name(opponent=false)
 	team = gets.chomp.upcase
 	team_names = PlayersStat.distinct.pluck(:team).sort
 	if team == 'HELP'
-		puts '', team_names
+		puts team_names
 		puts "\nEnter team name:"
 		team = gets.chomp.upcase
 	end
@@ -91,6 +91,7 @@ def prompt_stat
 	puts '(type help for stat list)'
 	stat = gets.chomp.downcase
 	columns = PlayersStat.column_names.map {|col| col.split('_')[-1] if col.include?('projected')}
+	columns.compact!
 	if stat == 'help'
 		puts ''
 		puts columns
