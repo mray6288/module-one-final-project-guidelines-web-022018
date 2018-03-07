@@ -3,7 +3,7 @@ class CreatePlayersStats < ActiveRecord::Migration[4.2]
 
     create_table :players_stats do |t|
           t.integer :game_number
-          t.datetime :date
+          t.string :date
           t.string :name
           t.string :team
           t.string :opponent

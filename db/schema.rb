@@ -25,7 +25,7 @@ ActiveRecord::Schema.define(version: 3) do
 
   create_table "players_stats", force: :cascade do |t|
     t.integer "game_number"
-    t.datetime "date"
+    t.string "date"
     t.string "name"
     t.string "team"
     t.string "opponent"

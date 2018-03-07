@@ -2,14 +2,6 @@ def greeting
 	puts "\nWelcome to NBA stats interface"
 end
 
-def display_stats(player_stats, stat)
-	proj = ('projected_' + stat)
-	act = ('actual_' + stat)
-	puts "\n opponent | #{proj} | #{act}"
-	player_stats.each {|row| puts "    #{row.opponent}   |       #{row.send(proj)}       |     #{row.send(act)}"}
-	
-end
-
 
 def prompt_player_name
 	puts "\nEnter player name:"
@@ -31,6 +23,18 @@ def prompt_player_name
 	PlayersStat.where(player_id: player.id)
 end
 
+def print_to_csv(player_stats)
+	file_name = 'stats.csv'
+	CSV.open(file_name, 'w') do |csv|
+		csv << player_stats[0].attributes.keys
+		player_stats.each do |stat|
+			csv << stat.attributes.values
+		end
+	end
+	puts "Stats sent to #{file_name} - will be overwritten if you don't save!"
+end
+
+
 def display_past_stats(player_stats, stat)
 	proj = ('projected_' + stat)
 	act = ('actual_' + stat)
@@ -38,16 +42,19 @@ def display_past_stats(player_stats, stat)
 	total_proj = 0.0
 	total_act = 0.0
 	count = 0.0
+
 	player_stats.each do |row|
 		puts "    #{row.opponent}   |      #{row.send(proj)}      |     #{row.send(act)}"
 		count += 1
 		total_proj += row.send(proj)
 		total_act += row.send(proj)
 	end
+
 	avg_proj = total_proj/count
 	avg_act = total_act/count
-	puts "---------------------------------------------"
-	puts "    AVG   |     #{avg_proj.round(1)}      |     #{avg_act.round(1)}"
+	puts "------------------------------------"
+	puts "    AVG   |     #{avg_proj.round(1)}     |     #{avg_act.round(1)}"
+	print_to_csv(player_stats)
 	
 end
 
