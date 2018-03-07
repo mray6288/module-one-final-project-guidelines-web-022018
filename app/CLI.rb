@@ -47,7 +47,7 @@ def display_past_stats(player_stats, stat)
 		puts "    #{row.opponent}   |      #{row.send(proj)}      |     #{row.send(act)}"
 		count += 1
 		total_proj += row.send(proj)
-		total_act += row.send(proj)
+		total_act += row.send(act)
 	end
 
 	avg_proj = total_proj/count
