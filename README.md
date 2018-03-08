@@ -1,4 +1,4 @@
-# Module One Final Project - 
+# Module One Final Project - NBA Stats Alley-OOP
 
 This program seeds a database full of projected and actual stats for individual NBA games by player. With the command line interface, you can search for game stats by player, by team aggregates, or by opponent aggregates. These stats can then be saved to csv (file name will be stats_export.csv - please save elsewhere or will be overwritten with the next save).
 
