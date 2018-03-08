@@ -24,7 +24,7 @@ def prompt_player_name
 end
 
 def print_to_csv(player_stats)
-	file_name = 'stats.csv'
+	file_name = 'stats_export.csv'
 	CSV.open(file_name, 'w') do |csv|
 		csv << player_stats[0].attributes.keys
 		player_stats.each do |stat|
