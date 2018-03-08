@@ -31,7 +31,7 @@ def print_to_csv(player_stats)
 			csv << stat.attributes.values
 		end
 	end
-	puts "Stats sent to #{file_name} - will be overwritten if you don't save!"
+	puts "Stats sent to #{file_name} - will be overwritten if you don't save elsewhere!"
 end
 
 
@@ -54,13 +54,10 @@ def display_past_stats(player_stats, stat)
 	avg_act = total_act/count
 	puts "------------------------------------"
 	puts "    AVG   |     #{avg_proj.round(1)}     |     #{avg_act.round(1)}"
-	print_to_csv(player_stats)
+	player_stats
 	
 end
 
-def display_proj_stats(player_stats, stat)
-
-end
 
 def prompt_team_name(opponent=false)
 	puts "\nEnter team name:"
@@ -122,6 +119,18 @@ def select_option
 	input
 end
 
+def get_next_step
+	puts "\nType 'new' for a new query, 'csv' to save last query to csv, or 'exit' to exit program:"
+	input = gets.chomp.downcase
+	until input == 'new' || input == 'csv' || input == 'exit'
+		puts 'INVALID OPTION'
+		puts "\nType 'new' for a new query, 'csv' to save last query to csv and move to a new query, or 'exit' to exit program:"
+		input = gets.chomp.downcase
+	end
+	input
+end
+
+
 def start_interface
 	greeting
 	opt = select_option
@@ -129,16 +138,26 @@ def start_interface
 		if opt == 1
 			player_stats = prompt_player_name
 			stat = prompt_stat
-			display_past_stats(player_stats, stat)
+			to_csv = display_past_stats(player_stats, stat)
 		elsif opt == 2
 			team_stats = prompt_team_name
 			stat = prompt_stat
-			display_past_stats(team_stats.select("opponent, sum(projected_#{stat}) as projected_#{stat}, sum(actual_#{stat}) as actual_#{stat}").group(:game_id), stat)
+			to_csv = display_past_stats(team_stats.select("opponent, sum(projected_#{stat}) as projected_#{stat}, sum(actual_#{stat}) as actual_#{stat}").group(:game_id), stat)
 		elsif opt == 3
 			team_stats = prompt_team_name(opponent=true)
 			stat = prompt_stat
-			display_past_stats(team_stats.select("team as opponent, sum(projected_#{stat}) as projected_#{stat}, sum(actual_#{stat}) as actual_#{stat}").group(:game_id), stat)
+			to_csv = display_past_stats(team_stats.select("team as opponent, sum(projected_#{stat}) as projected_#{stat}, sum(actual_#{stat}) as actual_#{stat}").group(:game_id), stat)
 		end
-		opt = select_option
+		next_step = get_next_step
+		if next_step == 'new'
+			opt = select_option
+		elsif next_step == 'csv'
+			print_to_csv(to_csv)
+			opt = select_option
+		else
+			puts "\nGoodbye!"
+			break
+		end
+
 	end
 end
