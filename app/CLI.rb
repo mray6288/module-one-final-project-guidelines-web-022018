@@ -44,7 +44,7 @@ def display_past_stats(player_stats, stat)
 	count = 0.0
 
 	player_stats.each do |row|
-		puts "    #{row.opponent}   |      #{row.send(proj)}      |     #{row.send(act)}"
+		puts "    #{row.opponent}   |      #{row.send(proj).round(1)}      |     #{row.send(act)}"
 		count += 1
 		total_proj += row.send(proj)
 		total_act += row.send(act)
@@ -52,8 +52,8 @@ def display_past_stats(player_stats, stat)
 
 	avg_proj = total_proj/count
 	avg_act = total_act/count
-	puts "------------------------------------"
-	puts "    AVG   |     #{avg_proj.round(1)}     |     #{avg_act.round(1)}"
+	puts "----------------------------------------"
+	puts "    AVG   |      #{avg_proj.round(1)}      |     #{avg_act.round(1)}"
 	player_stats
 	
 end
