@@ -1,5 +1,8 @@
+
 def greeting
-	puts "\nWelcome to NBA stats interface"
+	a = Artii::Base.new
+	puts a.asciify("        Welcome to")
+	puts a.asciify("NBA stats Alley-OOP")
 end
 
 
@@ -155,7 +158,8 @@ def start_interface
 			print_to_csv(to_csv)
 			opt = select_option
 		else
-			puts "\nGoodbye!"
+			a = Artii::Base.new
+			puts a.asciify("Goodbye!")
 			break
 		end
 
