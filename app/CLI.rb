@@ -1,7 +1,7 @@
 
 def greeting
 	a = Artii::Base.new
-	puts a.asciify("        Welcome to")
+	puts a.asciify(" +* Welcome to *+")
 	puts a.asciify("NBA stats Alley-OOP")
 end
 
@@ -159,7 +159,7 @@ def start_interface
 			opt = select_option
 		else
 			a = Artii::Base.new
-			puts a.asciify("Goodbye!")
+			puts a.asciify("Goodbye !!!")
 			break
 		end
 
